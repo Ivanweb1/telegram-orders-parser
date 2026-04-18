@@ -109,19 +109,18 @@ def main():
     
     print("\n⏳ Подключение к Telegram...")
     
-    with client:
-        # При первом запуске потребуется ввести код подтверждения из СМС
-        if not client.is_user_authorized():
-            print("📱 Требуется авторизация")
-            print(f"📞 Используется номер: {PHONE_NUMBER}")
-            client.start()
-        
-        print("✓ Подключен к Telegram")
-        print("🔍 Слушаю сообщения в группах...")
-        print("=" * 50)
-        
-        # Запускаем обработчик событий
-        client.run_until_disconnected()
+    try:
+        with client:
+            print("✓ Подключен к Telegram")
+            print("🔍 Слушаю сообщения в группах...")
+            print("=" * 50)
+            
+            # Запускаем обработчик событий
+            client.run_until_disconnected()
+    except Exception as e:
+        print(f"❌ Ошибка подключения: {e}")
+        print("Убедись, что номер телефона в .env правильный")
+        time.sleep(5)
 
 if __name__ == '__main__':
     try:
