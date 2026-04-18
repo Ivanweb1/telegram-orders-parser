@@ -111,6 +111,11 @@ def main():
     
     try:
         with client:
+            # Автоматически подключаемся с номером из .env
+            if not client.is_user_authorized():
+                print(f"📱 Авторизация с номером: {PHONE_NUMBER}")
+                client.start(phone=PHONE_NUMBER)
+            
             print("✓ Подключен к Telegram")
             print("🔍 Слушаю сообщения в группах...")
             print("=" * 50)
